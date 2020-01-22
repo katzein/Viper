@@ -1,0 +1,41 @@
+from random import randint
+class Soldier():
+	def __init__(self):
+		self.alive = True
+		self.attack = randint(5,100)
+		self.hp = randint(50,250)
+		self.armor = randint(10,20)
+	def attack(self,player):
+		damage = self.attack - player.armor
+		player.hp -= damage
+		if player.hp <= 0 :
+			player.alive = False
+class Player():
+	def __init__(self):
+		self.alive = True
+		self.attack = randint(25,100)
+		self.hp = randint(250,750)
+		self.armor = 30
+	def attack(self, dusman):
+		damage = self.attack - dusman.armor
+		dusman.hp -= damage
+		if dusman.hp <= 0:
+			dusman.alive = False
+			soldiers.remove(dusman)
+soldiers = list()
+for i in range(10):
+	soldiers.append(Soldier())
+player = Player()
+while True:
+	print("Your stats --->> Damage : {}  --- Health : {}  --- Armor : 30".format(player.attack, player.hp))
+	if player.alive == False:
+		print("Game Over :(")
+		quit()
+	if not soldiers:
+		print("Congratulations ! You have defeated all of your enemies and won the game.")
+		quit()
+	for i in soldiers:
+		print("{}. soldier's attack damage --->>> {}   --- health --->>> {}   --- armor --->>> {}".format(soldiers.index(i)+1,i.attack,i.hp,i.armor))
+	chose = int(input("Select a soldier to attack : "))
+	soldier = soldiers[chose]
+	player.attack(soldier)
